@@ -7,7 +7,8 @@ TESTS = address_test \
         table_test \
         http_test \
         tls_test \
-        dtls_test
+        dtls_test \
+        ipsec_test
 
 TESTS += functional_test \
          bad_request_test \
@@ -27,6 +28,7 @@ endif
 check_PROGRAMS = http_test \
                  tls_test \
                  dtls_test \
+                 ipsec_test \
                  table_test \
                  buffer_test \
                  cfg_tokenizer_test \
@@ -45,6 +47,10 @@ tls_test_SOURCES = tls_test.c \
 dtls_test_SOURCES = dtls_test.c \
                    ../src/dtls.c \
                    ../src/sni.c \
+                   ../src/logger.c
+
+ipsec_test_SOURCES = ipsec_test.c \
+                   ../src/ipsec.c \
                    ../src/logger.c
 
 binder_test_SOURCES = binder_test.c \
@@ -78,6 +84,7 @@ config_test_SOURCES = config_test.c \
                       ../src/resolv.h \
                       ../src/tls.c \
                       ../src/dtls.c \
+                      ../src/ipsec.c \
                       ../src/sni.c \
                       ../src/http.c
 

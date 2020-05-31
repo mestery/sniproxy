@@ -8,6 +8,7 @@ resolv_test
 table_test
 tls_test
 dtls_test
+ipsec_test
 *.log
 *.trs
 *.pcap

@@ -36,6 +36,8 @@ sniproxy_SOURCES = sniproxy.c \
                    dtls.c \
                    dtls.h \
                    sni.c \
-                   sni.h
+                   sni.h \
+                   ipsec.c \
+                   ipsec.h
 
 sniproxy_LDADD = $(LIBEV_LIBS) $(LIBPCRE_LIBS) $(LIBUDNS_LIBS)

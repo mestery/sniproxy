@@ -610,9 +610,10 @@ static void
 abort_connection(struct Connection *con) {
     assert(client_socket_open(con));
 
-    buffer_push(con->server.buffer,
-            con->listener->protocol->abort_message,
-            con->listener->protocol->abort_message_len);
+    if (con->listener->protocol->abort_message != NULL)
+        buffer_push(con->server.buffer,
+                con->listener->protocol->abort_message,
+                con->listener->protocol->abort_message_len);
 
     con->state = SERVER_CLOSED;
 }

@@ -51,6 +51,7 @@
 #include "tls.h"
 #include "http.h"
 #include "dtls.h"
+#include "ipsec.h"
 
 static void close_listener(struct ev_loop *, struct Listener *);
 static void accept_cb(struct ev_loop *, struct ev_io *, int);
@@ -292,6 +293,8 @@ accept_listener_protocol(struct Listener *listener, const char *protocol) {
         listener->protocol = dtls_protocol;
     else if (strncasecmp(protocol, tls_protocol->name, strlen(protocol)) == 0)
         listener->protocol = tls_protocol;
+    else if (strncasecmp(protocol, ipsec_protocol->name, strlen(protocol)) == 0)
+        listener->protocol = ipsec_protocol;
     else
         return 0;
 
