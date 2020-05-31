@@ -37,6 +37,7 @@ struct test_packet {
     const char *hostname;
 };
 
+const char good_hostname_1[] = "notapplicable";
 const unsigned char good_data_1[] = {
     // Zero length SPI means this is an IKEv2 packet
     0x00, 0x00, 0x00, 0x00,
@@ -126,7 +127,7 @@ const unsigned char bad_data_3[] = {
 };
 
 static struct test_packet good[] = {
-    { (char *)good_data_1, sizeof(good_data_1), NULL },
+    { (char *)good_data_1, sizeof(good_data_1), good_hostname_1 },
 };
 
 static struct test_packet bad[] = {
@@ -146,7 +147,12 @@ int main() {
         printf("Testing packet of length %zu\n", good[i].len);
         result = ipsec_protocol->parse_packet(good[i].packet, good[i].len, &hostname);
 
-        assert(result == 0);
+        assert(result == 13);
+
+        assert(NULL != hostname);
+
+        assert(0 == strcmp(good[i].hostname, hostname));
+
     }
 
     for (i = 0; i < sizeof(bad) / sizeof(struct test_packet); i++) {

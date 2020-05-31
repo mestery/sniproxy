@@ -44,6 +44,7 @@
 #define IKEV2_SA             0x21
 #define IKEV2_VERSION        0x20
 #define IKEV2_SA_INIT        0x22
+#define IPSEC_DEFAULT_HOST   "notapplicable"
 
 static int parse_ipsec_header(const uint8_t*, size_t, char **);
 
@@ -61,7 +62,7 @@ const struct Protocol *const ipsec_protocol = &(struct Protocol){
  * array)
  *
  * Returns:
- *  0    - Successfully parsed IKEv2 packet
+ *  >=0  - Successfully parsed IKEv2 packet, returned length of hostname
  *  -1   - Incomplete request
  *  -2   - Incorrect IKE version
  *  -3   - Invalid hostname pointer
@@ -128,5 +129,8 @@ parse_ipsec_header(const uint8_t *data, size_t data_len, char **hostname) {
     /* Skip length */
     pos += 2;
 
-    return 0;
+    /* Return dummy hostname */
+    *hostname = strdup(IPSEC_DEFAULT_HOST);
+
+    return strlen(*hostname);
 }
